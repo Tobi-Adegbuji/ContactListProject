@@ -5,4 +5,6 @@
     <color name="colorAccent">#D81B60</color>
     <color name="navbar_background">#1A1A48</color>
     <color name="toolbar_background">#bebebe</color>
+    <color name="dialog_button_color">#26C6DA</color>
+    <color name="new_data_color">#330033</color>
 </resources>
