@@ -91,11 +91,13 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/toolbar"
-        android:layout_above="@+id/navbar">
+        android:layout_above="@+id/navbar"
+        android:background="@color/new_background_color">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
 
             <TextView
                 android:id="@+id/textContact"
@@ -107,6 +109,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
+                android:textColor="@color/new_TextView_color"
                 />
 
             <EditText
@@ -121,7 +124,8 @@
                 android:ems="14"
                 android:imeOptions="actionNext"
                 android:inputType="textCapWords"
-                android:textColor="@color/new_data_color">
+                android:textColor="@color/new_data_color"
+                >
                 <requestFocus/>
             </EditText>
 
@@ -136,6 +140,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="15dp"
                 android:layout_below="@+id/editName"
+                android:textColor="@color/new_TextView_color"
                 />
             <EditText
                 android:id="@+id/editAddress"
@@ -208,6 +213,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="15dp"
                 android:layout_below="@+id/editCity"
+                android:textColor="@color/new_TextView_color"
                 />
             <EditText
                 android:id="@+id/editHome"
@@ -235,6 +241,7 @@
                 android:layout_alignBottom="@+id/textHome"
                 android:layout_alignLeft="@+id/editCell"
                 android:layout_alignStart="@+id/editCell"
+                android:textColor="@color/new_TextView_color"
                 />
             <EditText
                 android:id="@+id/editCell"
@@ -264,6 +271,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="15dp"
+                android:textColor="@color/new_TextView_color"
                 />
 
 
@@ -292,18 +300,20 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="15dp"
+                android:textColor="@color/new_TextView_color"
                 />
 
             <TextView
                 android:id="@+id/textBirthday"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="01/01/1970:"
+                android:text="01/01/1970"
                 android:layout_alignBottom="@+id/textBday"
                 android:layout_toRightOf="@+id/textBday"
                 android:layout_toEndOf="@+id/textBday"
                 android:layout_marginLeft="10dp"
                 android:layout_marginStart="10dp"
+                android:textColor="@color/new_data_color"
                 />
 
             <Button
@@ -315,7 +325,8 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginEnd="10dp"
                 android:text="Change"
-                android:layout_alignBaseline="@+id/textBirthday"/>
+                android:layout_alignBaseline="@+id/textBirthday"
+                />
 
 
 
