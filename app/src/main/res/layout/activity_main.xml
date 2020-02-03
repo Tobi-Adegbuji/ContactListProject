@@ -92,7 +92,8 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/toolbar"
         android:layout_above="@+id/navbar"
-        android:background="@color/new_background_color">
+        android:background="@color/new_background_color"
+        android:id="@+id/scrollView1">
 
         <RelativeLayout
             android:layout_width="match_parent"

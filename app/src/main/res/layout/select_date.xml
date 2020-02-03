@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal"
-        android:gravity="end"
+        android:gravity="center"
         style="?android:attr/borderlessButtonStyle"
         >
 

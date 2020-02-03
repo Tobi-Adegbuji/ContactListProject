@@ -6,7 +6,16 @@
     <color name="navbar_background">#1A1A48</color>
     <color name="toolbar_background">#bebebe</color>
     <color name="dialog_button_color">#26C6DA</color>
-    <color name="new_background_color">#003366</color>
+    <color name="new_background_color">#bebebe</color>
     <color name="new_data_color">#FFFFFF</color>
     <color name="new_TextView_color">#FFFF00</color>
+    <color name="background_black">#000000</color>
+    <color name="background_red">#FF0000</color>
+    <color name="background_blue">#3F51B5</color>
+    <color name="background_green">#4CAF50</color>
+    <color name="background_purple">#9C27B0</color>
+    <color name="text_white">#FFFFFF</color>
+    <color name="text_red">#FF0000</color>
+    <color name="text_blue">#3F51B5</color>
+    <color name="text_black">#000000</color>
 </resources>
