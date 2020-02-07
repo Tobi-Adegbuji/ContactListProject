@@ -32,8 +32,8 @@ public class ContactDBHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         Log.w(ContactDBHelper.class.getName(),
                 "Upgrading database from version " + oldVersion + " to "
-                        + newVersion + ", which will destroy all old data");
-        db.execSQL("DROP TABLE IF EXISTS contact");
+                        + newVersion + ", which will add a new column named best friend forever");
+        db.execSQL("ALTER TABLE contact ADD COLUMN bestFriendForever int");
         onCreate(db);
     }
 

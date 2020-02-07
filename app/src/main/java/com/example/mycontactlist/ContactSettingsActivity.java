@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.ScrollView;
 
 public class ContactSettingsActivity extends AppCompatActivity {
 
@@ -22,6 +23,11 @@ public class ContactSettingsActivity extends AppCompatActivity {
         initSettings();
         initSortByClick();
         initSortOrderClick();
+
+
+        initBackgroundClick();
+
+
     }
     private void initListButton() {
         ImageButton ibList = (ImageButton) findViewById(R.id.imageButtonList);
@@ -77,6 +83,34 @@ public class ContactSettingsActivity extends AppCompatActivity {
         else {
             rbDescending.setChecked(true);
         }
+        /*color change code below */
+
+
+        String back = getSharedPreferences("MyContactListPreferences", Context.MODE_PRIVATE).getString("background","blue");
+
+        RadioButton def = (RadioButton) findViewById(R.id.bgDefault);
+        RadioButton red = (RadioButton) findViewById(R.id.bgRed);
+        RadioButton blue = (RadioButton) findViewById(R.id.bgBlue);
+        RadioButton black = (RadioButton) findViewById(R.id.bgBlack);
+        ScrollView settingsSV = (ScrollView) findViewById(R.id.settingsScrollView);
+
+
+        if(back.equalsIgnoreCase("default")) {
+            def.setChecked(true);
+            settingsSV.setBackgroundColor(getResources().getColor(R.color.new_background_color));
+
+        }else if (back.equalsIgnoreCase("red")) {
+            red.setChecked(true);
+            settingsSV.setBackgroundColor(getResources().getColor(R.color.background_red));
+
+        }else if(back.equalsIgnoreCase("black")){
+            black.setChecked(true);
+            settingsSV.setBackgroundColor(getResources().getColor(R.color.background_black));
+        }else {
+            blue.setChecked(true);
+            settingsSV.setBackgroundColor(getResources().getColor(R.color.background_blue));
+
+        }
     }
 
 
@@ -120,6 +154,62 @@ public class ContactSettingsActivity extends AppCompatActivity {
 
 
 
+    /* private void initBackgroundColor() {
+        String back = getSharedPreferences("MyContactListPreferences", Context.MODE_PRIVATE).getString("background","default");
+
+        RadioButton def = (RadioButton) findViewById(R.id.bgDefault);
+        RadioButton red = (RadioButton) findViewById(R.id.bgRed);
+        RadioButton blue = (RadioButton) findViewById(R.id.bgBlue);
+        ScrollView settingsSV = (ScrollView) findViewById(R.id.settingsScrollView);
+        ScrollView mainSV = (ScrollView) findViewById(R.id.scrollView1);
+        if(back.equalsIgnoreCase("default")) {
+            def.setChecked(true);
+            settingsSV.setBackgroundColor(getResources().getColor(R.color.new_background_color));
+            mainSV.setBackgroundColor(getResources().getColor(R.color.new_background_color));
+        }else if (back.equalsIgnoreCase("red")) {
+            red.setChecked(true);
+            settingsSV.setBackgroundColor(getResources().getColor(R.color.background_red));
+            mainSV.setBackgroundColor(getResources().getColor(R.color.background_red));
+        }else {
+            blue.setChecked(true);
+            settingsSV.setBackgroundColor(getResources().getColor(R.color.background_blue));
+            mainSV.setBackgroundColor(getResources().getColor(R.color.background_blue));
+        }
+
+
+    } */
+
+
+    private void initBackgroundClick(){
+        RadioGroup background = (RadioGroup) findViewById(R.id.radioGroupBackgroundColor);
+
+        background.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup arg0, int arg1) {
+                RadioButton def = (RadioButton) findViewById(R.id.bgDefault);
+                RadioButton red = (RadioButton) findViewById(R.id.bgRed);
+                RadioButton black = (RadioButton) findViewById(R.id.bgBlack);
+                ScrollView settingsSV = (ScrollView) findViewById(R.id.settingsScrollView);
+                if(def.isChecked()) {
+                    getSharedPreferences("MyContactListPreferences", Context.MODE_PRIVATE).edit().putString("background", "default").commit();
+                    settingsSV.setBackgroundColor(getResources().getColor(R.color.new_background_color));
+                }else if(red.isChecked()) {
+                    getSharedPreferences("MyContactListPreferences", Context.MODE_PRIVATE).edit().putString("background", "red").commit();
+                    settingsSV.setBackgroundColor(getResources().getColor(R.color.background_red));
+                }else if(black.isChecked()){
+                    getSharedPreferences("MyContactListPreferences", Context.MODE_PRIVATE).edit().putString("background", "black").commit();
+                    settingsSV.setBackgroundColor(getResources().getColor(R.color.background_black));
+                }
+                else {
+                    getSharedPreferences("MyContactListPreferences", Context.MODE_PRIVATE).edit().putString("background", "blue").commit();
+                    settingsSV.setBackgroundColor(getResources().getColor(R.color.background_blue));
+                }
+
+            }
+        });
+
+
+    }
 
 
 

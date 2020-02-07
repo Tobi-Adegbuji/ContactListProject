@@ -8,6 +8,16 @@
     android:id="@+id/actvity_contact_list"
     >
 
+    <ListView
+        android:id="@+id/lvContacts"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_above="@+id/navbar"
+         />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -50,17 +60,6 @@
             android:layout_toEndOf="@id/imageButtonMap"
             />
     </RelativeLayout>
-
-
-
-
-
-
-
-
-
-
-
 
 
 </RelativeLayout>

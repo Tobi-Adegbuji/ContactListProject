@@ -7,14 +7,24 @@
     tools:context=".ContactSettingsActivity"
     android:id="@+id/activity_settings">
 
-
-    <LinearLayout
+    <ScrollView
+        android:id="@+id/settingsScrollView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_above="@+id/navbar"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/navbar"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:orientation="vertical"
+        android:id="@+id/settingsLinear"
         >
 
 
@@ -131,32 +141,40 @@
 
 
             <RadioButton
-                android:id="@+id/radioButton9"
+                android:id="@+id/bgDefault"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="RadioButton" />
+                android:text="Default"
+                android:layout_weight="1"/>
 
             <RadioButton
-                android:id="@+id/radioButton8"
+                android:id="@+id/bgRed"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="RadioButton" />
+                android:text="Red"
+                android:layout_weight="1"/>
 
             <RadioButton
-                android:id="@+id/radioButton7"
+                android:id="@+id/bgBlue"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="RadioButton" />
+                android:text="Blue"
+                android:layout_weight="1"/>
 
             <RadioButton
-                android:id="@+id/radioButton6"
+                android:id="@+id/bgBlack"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="RadioButton" />
+                android:text="Black"
+                android:layout_weight="1"/>
+
+
         </RadioGroup>
 
 
     </LinearLayout>
+    </ScrollView>
+
 
     <include layout="@layout/navbar"/>
 

@@ -5,7 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 public class ContactListActivity extends AppCompatActivity {
 
@@ -16,17 +21,26 @@ public class ContactListActivity extends AppCompatActivity {
         initListButton();
         initMapButton();
         initSettingsButton();
+
+
+
+
+        ContactDataSource ds = new ContactDataSource(this);
+        ArrayList<String> names;
+        try{
+            ds.open();
+            names = ds.getContactName();
+            ds.close();
+            ListView listView = (ListView) findViewById(R.id.lvContacts);
+            listView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.activity_list_item, names));
+        }catch (Exception e){
+            Toast.makeText(this, "Error retrieving contacts", Toast.LENGTH_LONG).show();
+        }
     }
 
     private void initListButton() {
         ImageButton ibList = (ImageButton) findViewById(R.id.imageButtonList);
-        ibList.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(ContactListActivity.this, ContactListActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-            }
-        });
+        ibList.setEnabled(false);
 
     }
 
@@ -51,4 +65,16 @@ public class ContactListActivity extends AppCompatActivity {
             }
         });
     }
+
+
+
+
+
+
+
+
+
+
+
+
 }

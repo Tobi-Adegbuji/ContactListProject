@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.view.ContextThemeWrapper;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 
 public class ContactDataSource {
@@ -77,6 +78,7 @@ public class ContactDataSource {
         return didSucceed;
     }
 
+
     public int getLastContactID() {
         int lastID = -1;
         try{
@@ -91,6 +93,48 @@ public class ContactDataSource {
         }
         return lastID;
     }
+
+
+    public boolean updateContactAddress(Contact c, ContactAddress ca) {
+        boolean didSucceed = false;
+
+        try {
+            Long rowID = (long) c.getContactID();
+
+            ContentValues updateAddress = new ContentValues();
+
+            updateAddress.put("streetadress", c.getStreetAddress());
+            didSucceed = database.update("contact", updateAddress, "_id=" + rowID, null) > 0;
+
+
+        }catch (Exception e) {
+            //do nothing - will return false if there is an exception
+        }
+
+        return  didSucceed;
+
+    }
+
+    public ArrayList<String> getContactName(){
+        ArrayList<String> contactNames = new ArrayList<>();
+        try{
+            String query = "Select contactname from contact";
+            Cursor cursor = database.rawQuery(query, null); //holds the results from the query
+
+            cursor.moveToFirst(); //moves to the first record held in the cursor
+            while (!cursor.isAfterLast()) { //continues the loop while the cursor is not on the last record
+                contactNames.add(cursor.getString(0)); //querry result is add to contactName
+                cursor.moveToNext(); //moves to the next record helod in the cursor
+            }
+            cursor.close();
+        }
+        catch (Exception e) {
+            contactNames = new ArrayList<String>(); //ArrayList is set to a new empty ArrayList in case it crashes while running
+        }
+        return contactNames;
+    }
+
+
 
 
 
