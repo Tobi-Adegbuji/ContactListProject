@@ -17,7 +17,7 @@ public class ContactDBHelper extends SQLiteOpenHelper {
                     + "contactname text not null, streetaddress text, "
                     + "city text, state text, zipcode text, "
                     + "phonenumber text, cellnumber text, "
-                    + "email text, birthday text);";
+                    + "email text, birthday text, bestFriendForever integer);";
 
     public ContactDBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -33,7 +33,7 @@ public class ContactDBHelper extends SQLiteOpenHelper {
         Log.w(ContactDBHelper.class.getName(),
                 "Upgrading database from version " + oldVersion + " to "
                         + newVersion + ", which will add a new column named best friend forever");
-        db.execSQL("ALTER TABLE contact ADD COLUMN bestFriendForever int");
+        db.execSQL("ALTER TABLE contact ADD COLUMN bestFriendForever integer");
         onCreate(db);
     }
 

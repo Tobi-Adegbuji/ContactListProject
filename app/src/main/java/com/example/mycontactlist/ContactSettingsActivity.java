@@ -86,7 +86,7 @@ public class ContactSettingsActivity extends AppCompatActivity {
         /*color change code below */
 
 
-        String back = getSharedPreferences("MyContactListPreferences", Context.MODE_PRIVATE).getString("background","blue");
+        String back = getSharedPreferences("MyContactListPreferences", Context.MODE_PRIVATE).getString("background","default");
 
         RadioButton def = (RadioButton) findViewById(R.id.bgDefault);
         RadioButton red = (RadioButton) findViewById(R.id.bgRed);

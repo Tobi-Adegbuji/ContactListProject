@@ -8,6 +8,7 @@ import android.view.ContextThemeWrapper;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 
 public class ContactDataSource {
@@ -42,6 +43,9 @@ public class ContactDataSource {
             initialValues.put("cellnumber",c.getCellNumber()); //value retrieved from the Contact object and place into the ContentValues Object
             initialValues.put("email", c.getEMail()); //value retrieved from the Contact object and place into the ContentValues Object
             initialValues.put("birthday", String.valueOf(c.getBirthday().getTimeInMillis())); //SQLit does not support storing data as dates directly; value retrieved from the Contact object and place into the ContentValues Object
+            //test
+            initialValues.put("bestFriendForever", c.getBestFriendForever());
+            //test
 
             didSucceed = database.insert("contact", null, initialValues) > 0; //insert method returns the number of records successfully inserted
 
@@ -67,6 +71,7 @@ public class ContactDataSource {
             updateValues.put("cellnumber",c.getCellNumber());
             updateValues.put("email", c.getEMail());
             updateValues.put("birthday", String.valueOf(c.getBirthday().getTimeInMillis()));
+            updateValues.put("bestFriendForever", c.getBestFriendForever());
 
             didSucceed = database.update("contact", updateValues, "_id=" + rowID, null) > 0; //update method returns the number of records successfully updated
 
@@ -122,9 +127,9 @@ public class ContactDataSource {
             Cursor cursor = database.rawQuery(query, null); //holds the results from the query
 
             cursor.moveToFirst(); //moves to the first record held in the cursor
-            while (!cursor.isAfterLast()) { //continues the loop while the cursor is not on the last record
-                contactNames.add(cursor.getString(0)); //querry result is add to contactName
-                cursor.moveToNext(); //moves to the next record helod in the cursor
+            while (!cursor.isAfterLast()) { //continues the loop while the cursor is not after the last record
+                contactNames.add(cursor.getString(0)); //query result is added to contactName
+                cursor.moveToNext(); //moves to the next record held in the cursor
             }
             cursor.close();
         }
@@ -134,8 +139,76 @@ public class ContactDataSource {
         return contactNames;
     }
 
+    public ArrayList<Contact> getContacts(String sortField, String sortOrder) {
+        ArrayList<Contact> contacts = new ArrayList<Contact>();
+        try{
+            String query = "SELECT * FROM contact ORDER BY " + sortField + " " + sortOrder;
+            Cursor cursor = database.rawQuery(query, null); //holds the results from the query
+
+            Contact newContact; //new Contact object is declared
+            cursor.moveToFirst(); //moves to the first record held in the cursor
+            while(!cursor.isAfterLast()){ //continues the loop while the cursor is not after the last record
+                newContact = new Contact(); //new contact object initialized
+                newContact.setContactID(cursor.getInt(0));
+                newContact.setContactName(cursor.getString(1));
+                newContact.setStreetAddress(cursor.getString(2));
+                newContact.setCity(cursor.getString(3));
+                newContact.setState(cursor.getString(4));
+                newContact.setZipCode(cursor.getString(5));
+                newContact.setPhoneNumber(cursor.getString(6));
+                newContact.setCellNumber(cursor.getString(7));
+                newContact.setEMail(cursor.getString(8));
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTimeInMillis(Long.valueOf(cursor.getString(9)));
+                newContact.setBirthday(calendar);
+                newContact.setBestFriendForever(cursor.getInt(10));
+                contacts.add(newContact); //newContact object reference is added to the contacts ArrayList<Contact>
+                cursor.moveToNext();  //moves to the next record held in the cursor
+
+            }
+            cursor.close();
+        }
+        catch (Exception e) {
+            contacts = new ArrayList<Contact>(); //ArrayList is set to a new empty ArrayList in case it crashes while running
+        }
+        return contacts;
+    }
 
 
+    public Contact getSpecificContact(int contactId) {
+        Contact contact = new Contact();
+        String query = "SELECT * FROM contact WHERE _id =" + contactId;
+        Cursor cursor = database.rawQuery(query, null);
+
+        if (cursor.moveToFirst()) {
+            contact.setContactID(cursor.getInt(0));
+            contact.setContactName(cursor.getString(1));
+            contact.setStreetAddress(cursor.getString(2));
+            contact.setCity(cursor.getString(3));
+            contact.setState(cursor.getString(4));
+            contact.setZipCode(cursor.getString(5));
+            contact.setPhoneNumber(cursor.getString(6));
+            contact.setCellNumber(cursor.getString(7));
+            contact.setEMail(cursor.getString(8));
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(Long.valueOf(cursor.getString(9)));
+            contact.setBirthday(calendar);
+            contact.setBestFriendForever(cursor.getInt(10));
+            cursor.close();
+        }
+        return contact;
+    }
+
+    public boolean deleteContact(int contactId) {
+        boolean didDelete = false;
+        try {
+            //Three parameters for the .delete methood. 1. Name of the Table | 2. Where clause to determine the records to delete | 3. String Array of criteria for deletion (May be Null)
+            didDelete = database.delete("contact", "_id=" + contactId, null) > 0;
+        } catch (Exception e) {
+            //Do nothing -return value already set to false
+        }
+        return didDelete;
+    }
 
 
 }

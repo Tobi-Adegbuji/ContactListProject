@@ -14,17 +14,22 @@ import android.text.format.DateFormat;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 import com.example.mycontactlist.DatePickerDialog.SaveDateListener;
 
 import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity implements SaveDateListener {
+
+    boolean isBFF;
 
     private Contact currentContact; //creates the association between the this MainActivity class (ContactActivity) and a Contact object
 
@@ -36,6 +41,12 @@ public class MainActivity extends AppCompatActivity implements SaveDateListener 
         initListButton();
         initMapButton();
         initToggleButton();
+        Bundle extras = getIntent().getExtras();
+        if(extras != null) {
+            initContact(extras.getInt("contactid"));
+        } else {
+            currentContact = new Contact();
+        }
         setForEditing(false);
         initSettingsButton();
         initChangeDateButton();
@@ -43,7 +54,9 @@ public class MainActivity extends AppCompatActivity implements SaveDateListener 
         initTextChangedEvents();
         initSaveButton();
 
-        currentContact = new Contact(); //associates the currentContact variable with a new Contact Object
+
+
+
     }
 
 
@@ -107,6 +120,7 @@ public class MainActivity extends AppCompatActivity implements SaveDateListener 
         EditText editEmail = (EditText) findViewById(R.id.editEMail);
         Button buttonChange = (Button) findViewById(R.id.btnBirthday);
         Button buttonSave = (Button) findViewById(R.id.buttonSave);
+        CheckBox bff = (CheckBox) findViewById(R.id.checkBoxBFF);
 
         editName.setEnabled(enabled);
         editAddress.setEnabled(enabled);
@@ -118,6 +132,7 @@ public class MainActivity extends AppCompatActivity implements SaveDateListener 
         editEmail.setEnabled(enabled);
         buttonChange.setEnabled(enabled);
         buttonSave.setEnabled(enabled);
+        bff.setEnabled(enabled);
 
         if (enabled) {
             editName.requestFocus();
@@ -186,6 +201,25 @@ public class MainActivity extends AppCompatActivity implements SaveDateListener 
                 //Auto-generated method stub
             }
         });
+
+
+
+        //BFF CheckBox Test Code Start
+        final CheckBox etBFF = (CheckBox) findViewById(R.id.checkBoxBFF);
+        etBFF.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked) {
+                    currentContact.setBestFriendForever(1);
+                }else {
+                    currentContact.setBestFriendForever(0);
+                }
+            }
+        });
+        //End of BFF CheckBox Test Code */
+
+
+
 
         final EditText etStreetAddress = (EditText) findViewById(R.id.editAddress);
         etStreetAddress.addTextChangedListener(new TextWatcher() {
@@ -382,6 +416,89 @@ public class MainActivity extends AppCompatActivity implements SaveDateListener 
         imm.hideSoftInputFromWindow(editEMail.getWindowToken(), 0);
     }
 
+    private void initContact(int id) {
+
+        ContactDataSource ds = new ContactDataSource(MainActivity.this);
+        try {
+            ds.open();
+            currentContact = ds.getSpecificContact(id);
+            ds.close();
+        } catch (Exception e) {
+            Toast.makeText(this, "Load Contact Failed", Toast.LENGTH_LONG).show();
+        }
+
+        EditText editName = (EditText) findViewById(R.id.editName);
+        EditText editAddress = (EditText) findViewById(R.id.editAddress);
+        EditText editCity = (EditText) findViewById(R.id.editCity);
+        EditText editState= (EditText) findViewById(R.id.editState);
+        EditText editZip = (EditText) findViewById(R.id.editZipcode);
+        EditText editHome = (EditText) findViewById(R.id.editHome);
+        EditText editCell = (EditText) findViewById(R.id.editCell);
+        EditText editEMail = (EditText) findViewById(R.id.editEMail);
+        TextView birthDay = (TextView) findViewById(R.id.textBirthday);
+
+
+        //Test
+        CheckBox editBFF = (CheckBox) findViewById(R.id.checkBoxBFF);
+        //test
+
+        editName.setText(currentContact.getContactName());
+        editAddress.setText(currentContact.getStreetAddress());
+        editCity.setText(currentContact.getCity());
+        editState.setText(currentContact.getState());
+        editZip.setText(currentContact.getZipCode());
+        editHome.setText(currentContact.getPhoneNumber());
+        editCell.setText(currentContact.getCellNumber());
+        editEMail.setText(currentContact.getEMail());
+        birthDay.setText(DateFormat.format("MM/dd/yyyy", currentContact.getBirthday().getTimeInMillis()).toString());
+
+        try{
+            if(currentContact.getBestFriendForever() > 0) {
+                editBFF.setChecked(true);
+            } else {
+                editBFF.setChecked(false);
+            }
+
+        }catch (Exception e) {
+
+        }
+
+    }
+
+
+ /*
+    private void initCheckBoxBFFByClick() {
+        int bff = getSharedPreferences("MyContactListPreferences", Context.MODE_PRIVATE).getInt("BFF", 0);
+        CheckBox checkBoxBFF = (CheckBox) findViewById(R.id.checkBoxBFF);
+        checkBoxBFF.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked) {
+                    getSharedPreferences("MyContactListPreferences", Context.MODE_PRIVATE).edit().putInt("BFF", 1).commit();
+                }else {
+                    getSharedPreferences("MyContactListPreferences", Context.MODE_PRIVATE).edit().putInt("BFF", 0).commit();
+                }
+            }
+        });
+
+
+
+
+
+    }
+
+    private void initCheckBoxBFF() {
+        int bff = getSharedPreferences("MyContactListPreferences", Context.MODE_PRIVATE).getInt("BFF", 0);
+        CheckBox checkBoxBFF = (CheckBox) findViewById(R.id.checkBoxBFF);
+        if(bff == 1) {
+            checkBoxBFF.setChecked(true);
+        } else {
+            checkBoxBFF.setChecked(false);
+        }
+
+    }
+
+ */
 
 
 

@@ -14,6 +14,7 @@ public class Contact {
     private String cellNumber;
     private String eMail;
     private Calendar birthday;
+    private int bestFriendForever;
 
     public Contact() {
         contactID = -1;
@@ -80,6 +81,11 @@ public class Contact {
     public String getEMail() {
         return eMail;
     }
-
+    public int getBestFriendForever() {
+        return bestFriendForever;
+    }
+    public void setBestFriendForever(int bestFriendForever) {
+        this.bestFriendForever = bestFriendForever;
+    }
 }
 

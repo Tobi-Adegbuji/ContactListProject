@@ -18,4 +18,8 @@
     <color name="text_red">#FF0000</color>
     <color name="text_blue">#3F51B5</color>
     <color name="text_black">#000000</color>
+    <color name="system_red">#FF0000</color>
+    <color name="system_transparent">#00000000</color>
+    <color name="system_blue">#0000FF</color>
+    <color name="bff_gold_color">#FFD700</color>
 </resources>
