@@ -47,6 +47,7 @@ public class ContactAdapter extends ArrayAdapter<Contact> {
             TextView contactCityStateZip = (TextView) v.findViewById(R.id.textCityStateZip);
             Button b = (Button) v.findViewById(R.id.buttonDeleteContact);
             ImageView starBFF = (ImageView) v.findViewById(R.id.imageBFFStar);
+            ImageView starBBFF = (ImageView) v.findViewById(R.id.imageBBFFStar);
             contactName.setText(contact.getContactName());
             contactNumber.setText("Home: " + contact.getPhoneNumber());
             contactCell.setText("Cell: " + contact.getCellNumber());
@@ -56,10 +57,18 @@ public class ContactAdapter extends ArrayAdapter<Contact> {
 
 
             try{
-                if(contact.getBestFriendForever() > 0) {
+                if(contact.getBestFriendForever() == 1) {
                     starBFF.setVisibility(View.VISIBLE);
-                } else {
+                    starBBFF.setVisibility(View.INVISIBLE);
+                }
+                else if (contact.getBestFriendForever() == 2) {
+                    starBFF.setVisibility(View.VISIBLE);
+                    starBBFF.setVisibility(View.VISIBLE);
+                }
+                else {
                     starBFF.setVisibility(View.INVISIBLE);
+                    starBBFF.setVisibility(View.INVISIBLE);
+
                 }
 
             }

@@ -121,6 +121,7 @@ public class MainActivity extends AppCompatActivity implements SaveDateListener 
         Button buttonChange = (Button) findViewById(R.id.btnBirthday);
         Button buttonSave = (Button) findViewById(R.id.buttonSave);
         CheckBox bff = (CheckBox) findViewById(R.id.checkBoxBFF);
+        CheckBox bbff = (CheckBox) findViewById(R.id.checkBoxBBFF);
 
         editName.setEnabled(enabled);
         editAddress.setEnabled(enabled);
@@ -133,6 +134,7 @@ public class MainActivity extends AppCompatActivity implements SaveDateListener 
         buttonChange.setEnabled(enabled);
         buttonSave.setEnabled(enabled);
         bff.setEnabled(enabled);
+        bbff.setEnabled(enabled);
 
         if (enabled) {
             editName.requestFocus();
@@ -141,6 +143,11 @@ public class MainActivity extends AppCompatActivity implements SaveDateListener 
             s.fullScroll(ScrollView.FOCUS_UP);
         }
 
+        if(bff.isChecked()){
+            bbff.setEnabled(false);
+        }else if(bbff.isChecked()) {
+            bff.setEnabled(false);
+        }
 
 
 
@@ -206,17 +213,36 @@ public class MainActivity extends AppCompatActivity implements SaveDateListener 
 
         //BFF CheckBox Test Code Start
         final CheckBox etBFF = (CheckBox) findViewById(R.id.checkBoxBFF);
+        final CheckBox etBFFF = (CheckBox) findViewById(R.id.checkBoxBBFF);
         etBFF.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked) {
                     currentContact.setBestFriendForever(1);
-                }else {
+                    etBFFF.setEnabled(false);
+                } else {
                     currentContact.setBestFriendForever(0);
+                    etBFFF.setEnabled(true);
                 }
+
+
             }
         });
         //End of BFF CheckBox Test Code */
+
+
+        etBFFF.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked) {
+                    currentContact.setBestFriendForever(2);
+                    etBFF.setEnabled(false);
+                } else if(!etBFF.isChecked() && !isChecked) {
+                    currentContact.setBestFriendForever(0);
+                    etBFF.setEnabled(true);
+                }
+            }
+        });
 
 
 
@@ -442,6 +468,8 @@ public class MainActivity extends AppCompatActivity implements SaveDateListener 
         CheckBox editBFF = (CheckBox) findViewById(R.id.checkBoxBFF);
         //test
 
+        CheckBox editBBFF = (CheckBox) findViewById(R.id.checkBoxBBFF);
+
         editName.setText(currentContact.getContactName());
         editAddress.setText(currentContact.getStreetAddress());
         editCity.setText(currentContact.getCity());
@@ -453,10 +481,18 @@ public class MainActivity extends AppCompatActivity implements SaveDateListener 
         birthDay.setText(DateFormat.format("MM/dd/yyyy", currentContact.getBirthday().getTimeInMillis()).toString());
 
         try{
-            if(currentContact.getBestFriendForever() > 0) {
+            if(currentContact.getBestFriendForever() == 1) {
                 editBFF.setChecked(true);
-            } else {
+                editBBFF.setChecked(false);
+            }
+            else if (currentContact.getBestFriendForever() == 2){
+                editBBFF.setChecked(true);
                 editBFF.setChecked(false);
+            }
+            else {
+                editBFF.setChecked(false);
+                editBBFF.setChecked(false);
+
             }
 
         }catch (Exception e) {

@@ -150,11 +150,7 @@ public class ContactListActivity extends AppCompatActivity {
         });
     }
 
-    private void showBFFStar() {
-        ListView listView = (ListView) findViewById( R.id.lvContacts);
 
-
-    }
 
 
 }

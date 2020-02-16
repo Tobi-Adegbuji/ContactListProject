@@ -91,6 +91,20 @@
         android:visibility="invisible"
         />
 
+    <ImageView
+        android:id="@+id/imageBBFFStar"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
+        android:layout_toRightOf="@id/imageBFFStar"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="14dp"
+        android:src="@drawable/star"
+        android:layout_alignParentTop="true"
+        android:visibility="invisible"
+        />
+
+
+
 
 
 
