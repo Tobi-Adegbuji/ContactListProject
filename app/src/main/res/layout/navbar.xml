@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
-            app:srcCompat="@drawable/mapicon"
+            app:srcCompat="@drawable/mapsicon"
             />
 
         <ImageButton

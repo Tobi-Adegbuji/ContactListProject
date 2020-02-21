@@ -112,9 +112,9 @@ GoogleApiClient.ConnectionCallbacks, com.google.android.gms.location.LocationLis
 
     @Override
     public void onLocationChanged(Location location){
-        Toast.makeText(getBaseContext(), "Lat: " + location.getLatitude() +
-                " Long: " + location.getLongitude() +
-                "Accuracy: " + location.getAccuracy(), Toast.LENGTH_LONG).show();
+//        Toast.makeText(getBaseContext(), "Lat: " + location.getLatitude() +
+//                " Long: " + location.getLongitude() +
+//                "Accuracy: " + location.getAccuracy(), Toast.LENGTH_LONG).show();
     }
 
     protected void createLocationRequest(){
@@ -197,7 +197,7 @@ GoogleApiClient.ConnectionCallbacks, com.google.android.gms.location.LocationLis
                 //This point is now added to the builder where it is considered in creating the map boundaries
                 builder.include(point);
                 //MarkerOptions().postion sets the point on the map. The title is what you see when you click on that particular point... .setIcon
-                gMap.addMarker(new MarkerOptions().position(point).title(currentContact.getContactName() + " " + currentContact.getPhoneNumber()).snippet(address)).setIcon(BitmapDescriptorFactory.fromResource(R.drawable.googlemapicon));
+                gMap.addMarker(new MarkerOptions().position(point).title(currentContact.getContactName() + " " + currentContact.getPhoneNumber()).snippet(address)).setIcon(BitmapDescriptorFactory.fromResource(R.drawable.googlepin));
             }
 
         gMap.animateCamera(CameraUpdateFactory.newLatLngBounds(builder.build(), measureWidth, measureHeight, 450));
@@ -214,12 +214,17 @@ GoogleApiClient.ConnectionCallbacks, com.google.android.gms.location.LocationLis
                     addresses = geo.getFromLocationName(address, 1);
                 }
                 catch(IOException e){
+
                     e.printStackTrace();
                 }
-
+                if(addresses != null){
                 LatLng point = new LatLng(addresses.get(0).getLatitude(), addresses.get(0).getLongitude());
                 gMap.addMarker(new MarkerOptions().position(point).title(currentContact.getContactName()).snippet(address));
-            gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(point,16));
+            gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(point,16));}
+                else{
+                    Toast.makeText(getBaseContext(), "Could not find Contacts ", Toast.LENGTH_LONG).show();
+
+                }
             }
 
             else{

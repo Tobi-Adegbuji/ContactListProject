@@ -7,11 +7,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -32,6 +35,8 @@ public class ContactListActivity extends AppCompatActivity {
         initItemClick();
         initAddContactButton();
         initDeleteButton();
+        initBackButton();
+        initAddOrDelButton();
 
         String sortBy = getSharedPreferences("MyContactListPreferences", Context.MODE_PRIVATE).getString("sortfield", "contactname");
         String sortOrder = getSharedPreferences("MyContactListPreferences", Context.MODE_PRIVATE).getString("sortorder", "ASC");
@@ -75,7 +80,47 @@ public class ContactListActivity extends AppCompatActivity {
     }
 
 
+private void initAddOrDelButton(){
+    final TextView addOrDel = (TextView) findViewById(R.id.addOrDelete);
+    final Button newContact = (Button) findViewById(R.id.buttonAdd);
+    final Button deleteButton = (Button) findViewById(R.id.buttonDelete);
+    final Button backButton = (Button) findViewById(R.id.back);
+    final Animation slideUp = AnimationUtils.loadAnimation(this, R.anim.slide_up);
+    addOrDel.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            addOrDel.setVisibility(View.INVISIBLE);
+            deleteButton.setVisibility(View.VISIBLE);
+            newContact.setVisibility(View.VISIBLE);
+            backButton.setVisibility(View.VISIBLE);
+            deleteButton.startAnimation(slideUp);
+            newContact.startAnimation(slideUp);
+            backButton.startAnimation(slideUp);
+        }
+    });
+}
 
+    private void initBackButton(){
+        final TextView addOrDel = (TextView) findViewById(R.id.addOrDelete);
+        final Button newContact = (Button) findViewById(R.id.buttonAdd);
+        final Button deleteButton = (Button) findViewById(R.id.buttonDelete);
+        final Button backButton = (Button) findViewById(R.id.back);
+        final Animation slideDown = AnimationUtils.loadAnimation(this, R.anim.slide_down);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                deleteButton.setVisibility(View.INVISIBLE);
+                newContact.setVisibility(View.INVISIBLE);
+                backButton.setVisibility(View.INVISIBLE);
+                deleteButton.startAnimation(slideDown);
+                newContact.startAnimation(slideDown);
+                backButton.startAnimation(slideDown);
+                addOrDel.setVisibility(View.VISIBLE);
+
+
+            }
+        });
+    }
 
     private void initListButton() {
         ImageButton ibList = (ImageButton) findViewById(R.id.imageButtonList);

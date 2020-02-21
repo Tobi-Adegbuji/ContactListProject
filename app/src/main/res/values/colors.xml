@@ -8,7 +8,7 @@
     <color name="dialog_button_color">#26C6DA</color>
     <color name="new_background_color">#bebebe</color>
     <color name="new_data_color">#FFFFFF</color>
-    <color name="new_TextView_color">#FFFF00</color>
+    <color name="new_TextView_color">#FFFF</color>
     <color name="background_black">#000000</color>
     <color name="background_red">#FF0000</color>
     <color name="background_blue">#3F51B5</color>
@@ -22,4 +22,9 @@
     <color name="system_transparent">#00000000</color>
     <color name="system_blue">#0000FF</color>
     <color name="bff_gold_color">#FFD700</color>
+    <color name="material_red">#d85b5b</color>
+    <color name="confident_green">#104f25</color>
+    <color name="soft_balck">#0e1111</color>
+    <color name="softer_black">#232b2b</color>
+    <color name="material_blue">#005582</color>
 </resources>

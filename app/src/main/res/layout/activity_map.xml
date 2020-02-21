@@ -14,18 +14,9 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:background="@color/toolbar_background"
+        android:background="@android:color/transparent"
         >
-        <Button
-            android:id="@+id/buttonMapType"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="20dp"
-            android:layout_marginStart="20dp"
-            android:text="Satellite View"
-            />
+
 
     </RelativeLayout>
 
@@ -36,47 +27,76 @@
         android:layout_height="match_parent"
         android:layout_below="@id/toolbar"
         android:layout_above="@id/navbar"
-        class="com.google.android.gms.maps.SupportMapFragment"/>
+        class="com.google.android.gms.maps.SupportMapFragment">
+
+        <Button
+            android:id="@+id/buttonMapType"
+            android:background="@color/material_red"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
+            android:padding="8dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="7dp"
+            android:text="Satellite View"
+            android:textColor="@color/new_data_color"
+            />
+
+    </fragment>
 
 
 
     <RelativeLayout
-        android:id="@+id/navbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/navbar_background">
+        android:id="@+id/navbar"
+        android:background="@color/new_data_color"
+        >
+
+
 
         <ImageButton
             android:id="@+id/imageButtonList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/imageButtonMap"
+            android:layout_toStartOf="@id/imageButtonMap"
+            android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_toLeftOf="@+id/imageButtonMap"
-            android:layout_toStartOf="@+id/imageButtonMap"
-            app:srcCompat="@drawable/contactlisticon" />
+            app:layout_constraintStart_toStartOf="parent"
+            android:src="@drawable/contacts"
+            android:background="@android:color/transparent"
+            />
 
         <ImageButton
             android:id="@+id/imageButtonMap"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            app:srcCompat="@drawable/mapicon" />
+            android:layout_centerHorizontal="true"
+            app:srcCompat="@drawable/maps"
+            android:background="@android:color/transparent"
+            />
 
         <ImageButton
             android:id="@+id/imageButtonSettings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            app:srcCompat="@drawable/setting"
             android:layout_marginStart="20dp"
-            android:layout_toEndOf="@+id/imageButtonMap"
-            android:layout_toRightOf="@+id/imageButtonMap"
-            app:srcCompat="@drawable/settingsicon" />
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@id/imageButtonMap"
+            android:layout_toEndOf="@id/imageButtonMap"
+            android:background="@android:color/transparent"
 
+            />
     </RelativeLayout>
+
 
 
 

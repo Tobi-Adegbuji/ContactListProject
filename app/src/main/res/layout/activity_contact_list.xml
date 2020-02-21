@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".ContactListActivity"
     android:id="@+id/actvity_contact_list"
+    android:background="@color/soft_balck"
     >
     <RelativeLayout
         android:id="@+id/toolbar"
@@ -14,7 +15,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:background="@color/toolbar_background"
+        android:background="@color/soft_balck"
         >
 
         <Button
@@ -26,7 +27,13 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="20dp"
             android:layout_marginStart="20dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="7dp"
             android:text="Delete"
+            android:textColor="@color/new_data_color"
+            android:padding="5dp"
+            android:visibility="invisible"
+            android:background="@color/material_red"
             />
 
         <Button
@@ -39,8 +46,43 @@
             android:layout_marginRight="20dp"
             android:layout_marginEnd="20dp"
             android:text="Add Contact"
+            android:background="@color/material_red"
+            android:padding="5dp"
+            android:visibility="invisible"
             />
 
+        <TextView
+            android:id="@+id/addOrDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:layout_marginEnd="20dp"
+            android:text="Add or Delete Contact"
+            android:visibility="visible"
+            android:background="@color/new_data_color"
+            android:textStyle="bold"
+            android:textColor="@color/background_black"
+            android:padding="5dp"
+            />
+
+        <Button
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/buttonDelete"
+            android:layout_toLeftOf="@id/buttonAdd"
+            android:layout_centerVertical="true"
+            android:text="Back"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:visibility="invisible"
+            android:background="@color/material_red"
+            android:padding="5dp"
+            android:textColor="@color/new_data_color"
+            />
 
 
     </RelativeLayout>
@@ -60,7 +102,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:id="@+id/navbar"
-        android:background="@color/navbar_background"
+        android:background="@color/new_data_color"
         >
 
 
@@ -74,7 +116,8 @@
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:srcCompat="@drawable/contactlisticon"
+            android:src="@drawable/contacts"
+            android:background="@android:color/transparent"
             />
 
         <ImageButton
@@ -83,18 +126,21 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
-            app:srcCompat="@drawable/mapicon"
+            android:src="@drawable/maps"
+            android:background="@android:color/transparent"
             />
 
         <ImageButton
             android:id="@+id/imageButtonSettings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/settingsicon"
+            app:srcCompat="@drawable/setting"
             android:layout_marginStart="20dp"
             android:layout_marginLeft="20dp"
             android:layout_toRightOf="@id/imageButtonMap"
             android:layout_toEndOf="@id/imageButtonMap"
+            android:background="@android:color/transparent"
+
             />
     </RelativeLayout>
 

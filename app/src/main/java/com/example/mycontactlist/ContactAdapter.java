@@ -78,11 +78,11 @@ public class ContactAdapter extends ArrayAdapter<Contact> {
 
 
 
-            if(position % 2 == 0) {
-                contactName.setTextColor(Color.RED);
-            }else {
-                contactName.setTextColor(Color.BLUE);
-            }
+//            if(position % 2 == 0) {
+//                contactName.setTextColor(Color.RED);
+//            }else {
+//                contactName.setTextColor(Color.BLUE);
+//            }
 
         }
         catch (Exception e) {

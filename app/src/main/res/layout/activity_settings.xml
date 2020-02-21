@@ -176,7 +176,53 @@
     </ScrollView>
 
 
-    <include layout="@layout/navbar"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/navbar"
+        android:background="@color/new_data_color"
+        >
+
+
+
+        <ImageButton
+            android:id="@+id/imageButtonList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/imageButtonMap"
+            android:layout_toStartOf="@id/imageButtonMap"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:src="@drawable/contacts"
+            android:background="@android:color/transparent"
+            />
+
+        <ImageButton
+            android:id="@+id/imageButtonMap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            app:srcCompat="@drawable/maps"
+            android:background="@android:color/transparent"
+            />
+
+        <ImageButton
+            android:id="@+id/imageButtonSettings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/setting"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@id/imageButtonMap"
+            android:layout_toEndOf="@id/imageButtonMap"
+            android:background="@android:color/transparent"
+
+            />
+    </RelativeLayout>
 
 
 </RelativeLayout>
