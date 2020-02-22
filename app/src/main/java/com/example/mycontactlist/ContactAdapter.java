@@ -19,8 +19,8 @@ import java.util.ArrayList;
 
 public class ContactAdapter extends ArrayAdapter<Contact> {
 
-    private ArrayList<Contact> items; //holds the ArrayList of Contact Objects that have been retrieved from the database
-    private Context adapterContext;  //holds a reference to the context where the list is being displayed (ContactListActivity)
+    private ArrayList<Contact> items;
+    private Context adapterContext;
 
     public ContactAdapter(Context context, ArrayList<Contact> items) {
         super(context, R.layout.list_item, items);
@@ -75,15 +75,6 @@ public class ContactAdapter extends ArrayAdapter<Contact> {
             catch (Exception e){
 
             }
-
-
-
-//            if(position % 2 == 0) {
-//                contactName.setTextColor(Color.RED);
-//            }else {
-//                contactName.setTextColor(Color.BLUE);
-//            }
-
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -94,7 +85,11 @@ public class ContactAdapter extends ArrayAdapter<Contact> {
 
 
 
-
+//            if(position % 2 == 0) {
+//                contactName.setTextColor(Color.RED);
+//            }else {
+//                contactName.setTextColor(Color.BLUE);
+//            }
 
 
     public void showDelete(final int position, final View convertView, final Context context, final Contact contact) {

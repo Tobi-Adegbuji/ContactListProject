@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="176dp"
-    android:background="@color/softer_black"
+    android:layout_height="190dp"
+    android:background="@color/soft_balck"
     android:gravity="bottom"
     android:padding="16dp"
     android:theme="@style/ThemeOverlay.AppCompat.Dark"
@@ -17,6 +17,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textStyle="bold"
         android:paddingTop="8dp"
         android:text="My Contact List"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>

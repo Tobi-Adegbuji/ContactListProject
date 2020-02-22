@@ -10,7 +10,11 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
@@ -18,6 +22,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -43,10 +48,11 @@ public class ContactListActivity extends AppCompatActivity implements Navigation
         initDeleteButton();
         initBackButton();
         initAddOrDelButton();
+        initSearch();
 
+        //NAVIGATION DRAWER
     androidx.appcompat.widget.Toolbar toolbar = (androidx.appcompat.widget.Toolbar) findViewById(R.id.toolbar_header);
         setSupportActionBar(toolbar);
-
         drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.bringToFront();
@@ -55,6 +61,9 @@ public class ContactListActivity extends AppCompatActivity implements Navigation
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+
+
+        //SHARED PREFERENCES
         String sortBy = getSharedPreferences("MyContactListPreferences", Context.MODE_PRIVATE).getString("sortfield", "contactname");
         String sortOrder = getSharedPreferences("MyContactListPreferences", Context.MODE_PRIVATE).getString("sortorder", "ASC");
 
@@ -99,16 +108,40 @@ public class ContactListActivity extends AppCompatActivity implements Navigation
     }
 
 
+private void initSearch(){
+    //SEARCHBAR
+    EditText filter = findViewById(R.id.search_bar);
+    filter.addTextChangedListener(new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            (ContactListActivity.this).adapter.getFilter().filter(charSequence);
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+
+        }
+    });
+}
+
+
 private void initAddOrDelButton(){
     final TextView addOrDel = (TextView) findViewById(R.id.addOrDelete);
     final Button newContact = (Button) findViewById(R.id.buttonAdd);
     final Button deleteButton = (Button) findViewById(R.id.buttonDelete);
     final Button backButton = (Button) findViewById(R.id.back);
+    final EditText searchBar = (EditText) findViewById(R.id.search_bar);
     final Animation slideUp = AnimationUtils.loadAnimation(this, R.anim.slide_up);
     addOrDel.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             addOrDel.setVisibility(View.INVISIBLE);
+            searchBar.setVisibility(View.INVISIBLE);
             deleteButton.setVisibility(View.VISIBLE);
             newContact.setVisibility(View.VISIBLE);
             backButton.setVisibility(View.VISIBLE);
@@ -124,6 +157,7 @@ private void initAddOrDelButton(){
         final Button newContact = (Button) findViewById(R.id.buttonAdd);
         final Button deleteButton = (Button) findViewById(R.id.buttonDelete);
         final Button backButton = (Button) findViewById(R.id.back);
+        final EditText searchBar = (EditText) findViewById(R.id.search_bar);
         final Animation slideDown = AnimationUtils.loadAnimation(this, R.anim.slide_down);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,6 +169,7 @@ private void initAddOrDelButton(){
                 newContact.startAnimation(slideDown);
                 backButton.startAnimation(slideDown);
                 addOrDel.setVisibility(View.VISIBLE);
+                searchBar.setVisibility(View.VISIBLE);
 
 
             }

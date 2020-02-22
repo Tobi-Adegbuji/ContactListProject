@@ -188,19 +188,20 @@ GoogleApiClient.ConnectionCallbacks, com.google.android.gms.location.LocationLis
                 try{
                     //getFromLocation returns longitude and latitude from name
                     addresses = geo.getFromLocationName(address, 1);
+                    LatLng point = new LatLng(addresses.get(0).getLatitude(), addresses.get(0).getLongitude());
+                    //This point is now added to the builder where it is considered in creating the map boundaries
+                    builder.include(point);
+                    //MarkerOptions().postion sets the point on the map. The title is what you see when you click on that particular point... .setIcon
+                    gMap.addMarker(new MarkerOptions().position(point).title(currentContact.getContactName() + " " + currentContact.getPhoneNumber()).snippet(address)).setIcon(BitmapDescriptorFactory.fromResource(R.drawable.googlepin));
+                    gMap.animateCamera(CameraUpdateFactory.newLatLngBounds(builder.build(), measureWidth, measureHeight, 450));
+
                 }
                 catch(IOException e){
+
                     e.printStackTrace();
                 }
-                //LatLng Obejct is a point on the map which is taken from the lat and the long
-                LatLng point = new LatLng(addresses.get(0).getLatitude(), addresses.get(0).getLongitude());
-                //This point is now added to the builder where it is considered in creating the map boundaries
-                builder.include(point);
-                //MarkerOptions().postion sets the point on the map. The title is what you see when you click on that particular point... .setIcon
-                gMap.addMarker(new MarkerOptions().position(point).title(currentContact.getContactName() + " " + currentContact.getPhoneNumber()).snippet(address)).setIcon(BitmapDescriptorFactory.fromResource(R.drawable.googlepin));
             }
 
-        gMap.animateCamera(CameraUpdateFactory.newLatLngBounds(builder.build(), measureWidth, measureHeight, 450));
     }
         else{
             if(currentContact != null){

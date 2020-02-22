@@ -21,6 +21,11 @@ public class Contact {
         birthday = Calendar.getInstance();
     }
 
+    @Override
+    public String toString(){
+        return getContactName();
+    }
+
     public int getContactID() {
         return contactID;
     }
