@@ -1,21 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.drawerlayout.widget.DrawerLayout android:layout_width="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawer_layout"
+    android:fitsSystemWindows="true"
+    tools:context=".ContactListActivity"
+    tools:openDrawer="start"
+    >
+
+
+    <com.google.android.material.navigation.NavigationView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:id="@+id/nav_view"
+        app:headerLayout="@layout/nav_header"
+        app:menu="@menu/drawer_menu"
+        />
+
+
+<RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ContactListActivity"
     android:id="@+id/actvity_contact_list"
-    android:background="@color/soft_balck"
+    android:background="@color/new_data_color"
     >
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_header"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:background="@color/soft_balck"
+        android:elevation="7dp"
+        android:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+
     <RelativeLayout
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:background="@color/soft_balck"
+        android:layout_below="@id/toolbar_header"
         >
 
         <Button
@@ -62,9 +95,8 @@
             android:layout_marginEnd="20dp"
             android:text="Add or Delete Contact"
             android:visibility="visible"
-            android:background="@color/new_data_color"
             android:textStyle="bold"
-            android:textColor="@color/background_black"
+            android:textColor="@color/material_red"
             android:padding="5dp"
             />
 
@@ -97,52 +129,8 @@
         android:layout_below="@+id/toolbar"
          />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:id="@+id/navbar"
-        android:background="@color/new_data_color"
-        >
 
-
-        <ImageButton
-            android:id="@+id/imageButtonList"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@id/imageButtonMap"
-            android:layout_toStartOf="@id/imageButtonMap"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            app:layout_constraintStart_toStartOf="parent"
-            android:src="@drawable/contacts"
-            android:background="@android:color/transparent"
-            />
-
-        <ImageButton
-            android:id="@+id/imageButtonMap"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
-            android:src="@drawable/maps"
-            android:background="@android:color/transparent"
-            />
-
-        <ImageButton
-            android:id="@+id/imageButtonSettings"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/setting"
-            android:layout_marginStart="20dp"
-            android:layout_marginLeft="20dp"
-            android:layout_toRightOf="@id/imageButtonMap"
-            android:layout_toEndOf="@id/imageButtonMap"
-            android:background="@android:color/transparent"
-
-            />
-    </RelativeLayout>
 
 
 </RelativeLayout>
+</androidx.drawerlayout.widget.DrawerLayout>

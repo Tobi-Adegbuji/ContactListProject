@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/soft_balck">
+    android:background="@color/new_data_color">
 
     <TextView
         android:id="@+id/textContactName"
@@ -15,6 +15,7 @@
         android:layout_marginLeft="15dp"
         android:layout_marginStart="15dp"
         android:text="Contact Name"
+        android:textColor="@color/background_black"
         android:textStyle="bold"
         android:textSize="@dimen/text_size_large"/>
 
@@ -26,10 +27,12 @@
         android:layout_alignParentStart="true"
         android:layout_marginLeft="15dp"
         android:layout_marginStart="15dp"
+        android:textColor="@color/background_black"
         android:layout_below="@+id/textCityStateZip"
         android:text="Phone Number:"/>
 
     <TextView
+        android:textColor="@color/background_black"
         android:id="@+id/textCellNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -59,6 +62,7 @@
         android:text="Delete"/>
 
     <TextView
+        android:textColor="@color/background_black"
         android:id="@+id/textStreetAddress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -72,6 +76,7 @@
         />
 
     <TextView
+        android:textColor="@color/background_black"
         android:id="@+id/textCityStateZip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

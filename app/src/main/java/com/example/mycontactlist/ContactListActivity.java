@@ -1,11 +1,17 @@
 package com.example.mycontactlist;
-
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.ActionBarContextView;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -17,26 +23,37 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.navigation.NavigationView;
+
 import java.util.ArrayList;
 
-public class ContactListActivity extends AppCompatActivity {
+public class ContactListActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     ArrayList<Contact> contacts;
     boolean isDeleting = false;
     ContactAdapter adapter;
-
+    private DrawerLayout drawer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact_list);
-        initListButton();
-        initMapButton();
-        initSettingsButton();
+//        initListButton();
         initItemClick();
         initAddContactButton();
         initDeleteButton();
         initBackButton();
         initAddOrDelButton();
+
+    androidx.appcompat.widget.Toolbar toolbar = (androidx.appcompat.widget.Toolbar) findViewById(R.id.toolbar_header);
+        setSupportActionBar(toolbar);
+
+        drawer = findViewById(R.id.drawer_layout);
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.bringToFront();
+        navigationView.setNavigationItemSelectedListener(this);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,R.string.navigataion_drawer_open,R.string.navigataion_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
 
         String sortBy = getSharedPreferences("MyContactListPreferences", Context.MODE_PRIVATE).getString("sortfield", "contactname");
         String sortOrder = getSharedPreferences("MyContactListPreferences", Context.MODE_PRIVATE).getString("sortorder", "ASC");
@@ -54,6 +71,8 @@ public class ContactListActivity extends AppCompatActivity {
             Toast.makeText(this, "Error retrieving contacts", Toast.LENGTH_LONG).show();
         }
     }
+
+
     @Override
     public void onResume() {
         super.onResume();
@@ -122,33 +141,39 @@ private void initAddOrDelButton(){
         });
     }
 
-    private void initListButton() {
-        ImageButton ibList = (ImageButton) findViewById(R.id.imageButtonList);
-        ibList.setEnabled(false);
+//    public void initNavigationDrawer() {
+//
+//        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+//        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+//            @Override
+//            public boolean onNavigationItemSelected(MenuItem menuItem) {
+//
+//                int id = menuItem.getItemId();
+//
+//
+//                    default:
+//                        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+//                        drawer.closeDrawer(GravityCompat.START);
+//                        return true;
+//
+//                }
+//                return true;
+//            }
+//        });
+//    }
 
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        if(toggle.onOptionsItemSelected(item)){
+//            return true;
+//        }}
 
-    private void initMapButton() {
-        ImageButton ibList = (ImageButton) findViewById(R.id.imageButtonMap);
-        ibList.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(ContactListActivity.this, ContactMapActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-            }
-        });
-    }
+//    private void initListButton() {
+//        ImageButton ibList = (ImageButton) findViewById(R.id.imageButtonList);
+//        ibList.setEnabled(false);
+//
+//    }
 
-    private void initSettingsButton() {
-        ImageButton ibList = (ImageButton) findViewById(R.id.imageButtonSettings);
-        ibList.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(ContactListActivity.this, ContactSettingsActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-            }
-        });
-    }
 
     private void initItemClick(){
         ListView listView = (ListView) findViewById(R.id.lvContacts);
@@ -195,6 +220,27 @@ private void initAddOrDelButton(){
         });
     }
 
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.contactitem:
+                break;
+            case R.id.mapitem:
+                Intent intent2 = new Intent(ContactListActivity.this, ContactMapActivity.class);
+                intent2.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent2);
+                break;
+            case R.id.settingsitem:
+                Intent intent3 = new Intent(ContactListActivity.this, ContactSettingsActivity.class);
+                intent3.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent3);
+                break;
+        }
+        drawer.closeDrawer(GravityCompat.START);
+    return true;
+    }
 
 
 
