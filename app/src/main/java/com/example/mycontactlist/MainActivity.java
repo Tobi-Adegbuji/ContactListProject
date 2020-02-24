@@ -3,14 +3,18 @@ package com.example.mycontactlist;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.os.BatteryManager;
 import android.os.Bundle;
 import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -50,9 +54,24 @@ public class MainActivity extends AppCompatActivity implements SaveDateListener 
         setForEditing(false);
         initSettingsButton();
         initChangeDateButton();
-
         initTextChangedEvents();
         initSaveButton();
+
+        //MONTIORING BATTERY
+        BroadcastReceiver batteryReciever = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                double batteryLvl = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, 0); //Retrieves Battery Percentage as int and is saved as a double
+                double lvlScale = intent.getIntExtra(BatteryManager.EXTRA_SCALE,0); //This retrieves the scale used for measuring the charge (differnt devices have different scales)
+                int batteryPercent = (int) Math.floor(batteryLvl/lvlScale * 100); //floor is used to round decimal.
+                TextView textBatteryState = (TextView) findViewById(R.id.batteryPercent);
+                Log.d("Percent", String.valueOf(batteryPercent)); //Debugging
+                textBatteryState.setText(batteryPercent + "%");
+            }
+        };
+
+        IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+        registerReceiver(batteryReciever, filter);
 
 
 

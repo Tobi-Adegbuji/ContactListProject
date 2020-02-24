@@ -19,8 +19,8 @@ import java.util.ArrayList;
 
 public class ContactAdapter extends ArrayAdapter<Contact> {
 
-    private ArrayList<Contact> items;
-    private Context adapterContext;
+    private ArrayList<Contact> items; //holds the ArrayList of Contact Objects that have been retrieved from the database
+    private Context adapterContext;  //holds a reference to the context where the list is being displayed (ContactListActivity)
 
     public ContactAdapter(Context context, ArrayList<Contact> items) {
         super(context, R.layout.list_item, items);

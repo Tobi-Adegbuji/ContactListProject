@@ -181,7 +181,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:id="@+id/navbar"
-        android:background="@color/new_data_color"
+        android:background="@color/background_black"
         >
 
 
@@ -212,16 +212,18 @@
 
         <ImageButton
             android:id="@+id/imageButtonSettings"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/setting"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_centerVertical="true"
             android:layout_marginStart="20dp"
             android:layout_marginLeft="20dp"
-            android:layout_toRightOf="@id/imageButtonMap"
             android:layout_toEndOf="@id/imageButtonMap"
-            android:background="@android:color/transparent"
+            android:layout_toRightOf="@id/imageButtonMap"
+            android:background="@drawable/navsettings"
 
             />
+
+
     </RelativeLayout>
 
 

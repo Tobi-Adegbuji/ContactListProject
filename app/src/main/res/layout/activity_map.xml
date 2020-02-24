@@ -7,43 +7,32 @@
     android:layout_height="match_parent"
     tools:context="com.example.mycontactlist.ContactMapActivity">
 
-    <RelativeLayout
-        android:id="@+id/toolbar"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:background="@android:color/transparent"
-        >
 
-
-    </RelativeLayout>
 
 
     <fragment
+
         android:id="@+id/map"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/toolbar"
         android:layout_above="@id/navbar"
         class="com.google.android.gms.maps.SupportMapFragment">
 
-        <Button
-            android:id="@+id/buttonMapType"
-            android:background="@color/material_red"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="20dp"
-            android:layout_marginStart="20dp"
-            android:padding="8dp"
-            android:layout_marginTop="7dp"
-            android:layout_marginBottom="7dp"
-            android:text="Satellite View"
-            android:textColor="@color/new_data_color"
-            />
+
+<!--        <RelativeLayout-->
+<!--            android:id="@+id/toolbar"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_alignParentLeft="true"-->
+<!--            android:layout_alignParentStart="true"-->
+<!--            android:layout_alignParentTop="true"-->
+<!--            android:background="@android:color/transparent"-->
+<!--            >-->
+
+<!--            -->
+
+<!--        </RelativeLayout>-->
+
 
     </fragment>
 
@@ -54,7 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:id="@+id/navbar"
-        android:background="@color/new_data_color"
+        android:background="@color/background_black"
         >
 
 
@@ -85,16 +74,41 @@
 
         <ImageButton
             android:id="@+id/imageButtonSettings"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/setting"
+            android:layout_width="40dp"
+            android:layout_height="45dp"
+            android:layout_centerVertical="true"
             android:layout_marginStart="20dp"
             android:layout_marginLeft="20dp"
-            android:layout_toRightOf="@id/imageButtonMap"
             android:layout_toEndOf="@id/imageButtonMap"
-            android:background="@android:color/transparent"
+            android:layout_toRightOf="@id/imageButtonMap"
+            android:background="@drawable/navsettings"
 
             />
+
+        <Button
+            android:id="@+id/buttonMapType"
+            android:background="@color/new_data_color"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="10dp"
+            android:padding="8dp"
+            android:text="Satellite View"
+            android:textColor="@color/soft_balck"
+            android:textSize="8sp"
+            android:layout_toRightOf="@+id/imageButtonSettings"
+            />
+
+        <TextView
+            android:id="@+id/textHeading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="WNW"
+            android:layout_toLeftOf="@+id/imageButtonList"
+            android:layout_centerVertical="true"
+            />
+
     </RelativeLayout>
 
 

@@ -7,14 +7,18 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.BatteryManager;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
@@ -30,6 +34,8 @@ import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 public class ContactListActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -42,6 +48,7 @@ public class ContactListActivity extends AppCompatActivity implements Navigation
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact_list);
+
 //        initListButton();
         initItemClick();
         initAddContactButton();
@@ -84,6 +91,7 @@ public class ContactListActivity extends AppCompatActivity implements Navigation
 
     @Override
     public void onResume() {
+
         super.onResume();
         String sortBy = getSharedPreferences("MyContactListPreferences", Context.MODE_PRIVATE).getString("sortfield", "contactname");
         String sortOrder = getSharedPreferences("MyContactListPreferences", Context.MODE_PRIVATE).getString("sortorder", "ASC");
@@ -137,17 +145,22 @@ private void initAddOrDelButton(){
     final Button backButton = (Button) findViewById(R.id.back);
     final EditText searchBar = (EditText) findViewById(R.id.search_bar);
     final Animation slideUp = AnimationUtils.loadAnimation(this, R.anim.slide_up);
+    final Animation slideDown = AnimationUtils.loadAnimation(this, R.anim.slide_down);
+
     addOrDel.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            addOrDel.setVisibility(View.INVISIBLE);
-            searchBar.setVisibility(View.INVISIBLE);
+
             deleteButton.setVisibility(View.VISIBLE);
             newContact.setVisibility(View.VISIBLE);
             backButton.setVisibility(View.VISIBLE);
+            addOrDel.setAnimation(slideDown);
+            searchBar.setAnimation(slideDown);
             deleteButton.startAnimation(slideUp);
             newContact.startAnimation(slideUp);
             backButton.startAnimation(slideUp);
+            addOrDel.setVisibility(View.INVISIBLE);
+            searchBar.setVisibility(View.INVISIBLE);
         }
     });
 }

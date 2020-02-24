@@ -13,6 +13,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Point;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -40,6 +44,7 @@ import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -56,6 +61,44 @@ GoogleApiClient.ConnectionCallbacks, com.google.android.gms.location.LocationLis
     LocationRequest mLocationRequest;
     ArrayList<Contact> contacts = new ArrayList<>();
     Contact currentContact = null;
+    SensorManager sensorManager;
+    Sensor accelerometer;
+    Sensor magnetometer;
+    TextView textDirection;
+    private SensorEventListener mySensorEventListener = new SensorEventListener() {
+        @Override
+        public void onAccuracyChanged(Sensor sensor, int i) {
+        ////////////////
+        }
+        float[] accelerometerValues;
+        float[] magnetometerValues;
+        @Override
+        public void onSensorChanged(SensorEvent event) {
+            if(event.sensor.getType() == Sensor.TYPE_ACCELEROMETER)
+                accelerometerValues = event.values;
+            if(event.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD)
+                magnetometerValues = event.values;
+            if(accelerometerValues != null && magnetometerValues != null){
+                float R[] = new float[9];
+                float I[] = new float[9];
+                boolean success = SensorManager.getRotationMatrix(R, I, accelerometerValues, magnetometerValues);
+            if(success){
+                float orientation[] = new float[3];
+                SensorManager.getOrientation(R, orientation);
+
+                float azimut = (float) Math.toDegrees(orientation[0]);
+                if(azimut < 0.0f){azimut += 360.0f;}
+                String direction;
+                if(azimut > 315 || azimut < 45){direction = "N";}
+                else if(azimut >= 225 && azimut < 315){direction = "W";}
+                else if(azimut >= 135 && azimut < 225){direction = "S";}
+                else {direction = "E";}
+                textDirection.setText(direction);
+            }
+
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +133,22 @@ GoogleApiClient.ConnectionCallbacks, com.google.android.gms.location.LocationLis
                     .addApi(LocationServices.API)
                     .build();
         }
+
+        //SENSOR INSTANTIATION
+        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        magnetometer = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+        //Not all devices have sensors, so we first test if it does so our app doesnt crash.
+        //The 1st registerListener Parameter is for what listener you want to associate it with and the second is
+        //how fast you want to process the sensor events. In our case we want updates as fast as possible
+        if(accelerometer != null && magnetometer != null){
+            sensorManager.registerListener(mySensorEventListener, accelerometer, SensorManager.SENSOR_DELAY_FASTEST);
+            sensorManager.registerListener(mySensorEventListener, magnetometer, SensorManager.SENSOR_DELAY_FASTEST);
+        }
+        else{
+            Toast.makeText(this, "Sensors not found", Toast.LENGTH_SHORT).show();
+        }
+        textDirection = (TextView) findViewById(R.id.textHeading);
 
         initListButton();
         initMapButton();
@@ -165,14 +224,15 @@ GoogleApiClient.ConnectionCallbacks, com.google.android.gms.location.LocationLis
     public void onMapReady(GoogleMap googleMap){
         gMap = googleMap;
         gMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-
+        MapStyleOptions mapStyleOptions = MapStyleOptions.loadRawResourceStyle(this, R.raw.dark_map);
+        googleMap.setMapStyle(mapStyleOptions);
         //The next 5 lines are used to get the dimensions of device in order to display markers properly
         Point size = new Point();
         WindowManager w = getWindowManager();
         w.getDefaultDisplay().getSize(size);
         int measureWidth = size.x;
         int measureHeight = size.y;
-
+        googleMap.getUiSettings().setCompassEnabled(true);
         if(contacts.size() > 0) {
             //constructs the geographic boundaries of a set of GPS Coordinates
             LatLngBounds.Builder builder = new LatLngBounds.Builder();
