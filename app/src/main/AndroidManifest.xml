@@ -2,12 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.mycontactlist">
 
+<!--PERMISSIONS-->
+
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <permission
         android:name="com.example.mycontactlist.permission.MAPS_RECIEVE"
         android:protectionLevel="signature" />
-
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
     <uses-permission android:name="com.example.mycontactlist.permission.MAPS_RECIEVE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />

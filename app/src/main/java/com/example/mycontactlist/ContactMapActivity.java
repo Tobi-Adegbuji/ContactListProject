@@ -252,7 +252,7 @@ GoogleApiClient.ConnectionCallbacks, com.google.android.gms.location.LocationLis
                     //This point is now added to the builder where it is considered in creating the map boundaries
                     builder.include(point);
                     //MarkerOptions().postion sets the point on the map. The title is what you see when you click on that particular point... .setIcon
-                    gMap.addMarker(new MarkerOptions().position(point).title(currentContact.getContactName() + " " + currentContact.getPhoneNumber()).snippet(address)).setIcon(BitmapDescriptorFactory.fromResource(R.drawable.googlepin));
+                    gMap.addMarker(new MarkerOptions().position(point).title(currentContact.getContactName() + " " + currentContact.getPhoneNumber()).snippet(address)).setIcon(BitmapDescriptorFactory.fromResource(R.drawable.googlepin2));
                     gMap.animateCamera(CameraUpdateFactory.newLatLngBounds(builder.build(), measureWidth, measureHeight, 450));
 
                 }

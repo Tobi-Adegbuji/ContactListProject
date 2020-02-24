@@ -1,14 +1,21 @@
 package com.example.mycontactlist;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 
+import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.BatteryManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.text.Editable;
@@ -28,13 +35,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 import com.example.mycontactlist.DatePickerDialog.SaveDateListener;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity implements SaveDateListener {
 
     boolean isBFF;
-
+    final int PERMISSION_REQUEST_PHONE = 102;
     private Contact currentContact; //creates the association between the this MainActivity class (ContactActivity) and a Contact object
 
 
@@ -55,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements SaveDateListener 
         initSettingsButton();
         initChangeDateButton();
         initTextChangedEvents();
+        initCallFunction();
         initSaveButton();
 
         //MONTIORING BATTERY
@@ -69,13 +78,90 @@ public class MainActivity extends AppCompatActivity implements SaveDateListener 
                 textBatteryState.setText(batteryPercent + "%");
             }
         };
-
         IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
         registerReceiver(batteryReciever, filter);
+    }
 
 
+    // Long Click OnClickListener
+    private void initCallFunction(){
+    EditText editPhone = (EditText) findViewById(R.id.editHome);
+    editPhone.setOnLongClickListener(new View.OnLongClickListener() {
+        @Override
+        public boolean onLongClick(View view) {
+            checkPhonePermission(currentContact.getPhoneNumber());
+            return false;
+        }
+    });
 
+        EditText editCell = (EditText) findViewById(R.id.editCell);
+        editCell.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                checkPhonePermission(currentContact.getCellNumber());
+                return false;
+            }
+        });
+    }
 
+    private void checkPhonePermission(String phoneNumber){
+        if(Build.VERSION.SDK_INT >= 23){
+            if(ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+
+                if(ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, Manifest.permission.CALL_PHONE)){
+
+                Snackbar.make(findViewById(R.id.actvity_main),
+                        "MyContactList requires this permission to place a call from the app.",
+                        Snackbar.LENGTH_INDEFINITE).setAction("OK", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        ActivityCompat.requestPermissions(
+                                MainActivity.this, new String[]{
+                                        Manifest.permission.CALL_PHONE},
+                                PERMISSION_REQUEST_PHONE);
+                    }
+                }).show();
+            }
+                else{
+                ActivityCompat.requestPermissions(
+                        MainActivity.this, new String[]{
+                                Manifest.permission.CALL_PHONE},
+                        PERMISSION_REQUEST_PHONE);
+                }}
+                else{
+                callContact(phoneNumber);
+            }}
+            else{
+                callContact(phoneNumber);
+            }
+            }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,@NonNull int[] grantResults){
+
+        switch(requestCode){
+            case PERMISSION_REQUEST_PHONE:{
+                if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                    Toast.makeText(MainActivity.this, "You will now call from this app.",Toast.LENGTH_LONG).show();
+                }
+                else{
+                    Toast.makeText(MainActivity.this, "You will not be able to make calls from this app", Toast.LENGTH_LONG).show();
+                }
+            }
+        }
+
+    }
+
+    private void callContact(String phonenNubmber){
+        Intent intent = new Intent(Intent.ACTION_CALL);
+        intent.setData(Uri.parse("tel:" + phonenNubmber));
+        if(Build.VERSION.SDK_INT >= 23 && ContextCompat.checkSelfPermission(getBaseContext(), Manifest.permission.CALL_PHONE) !=
+                PackageManager.PERMISSION_GRANTED){
+                    return;
+        }
+        else{
+            startActivity(intent);
+        }
     }
 
 
