@@ -9,6 +9,7 @@
     <permission
         android:name="com.example.mycontactlist.permission.MAPS_RECIEVE"
         android:protectionLevel="signature" />
+    <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.CALL_PHONE"/>
     <uses-permission android:name="com.example.mycontactlist.permission.MAPS_RECIEVE" />
     <uses-permission android:name="android.permission.INTERNET" />

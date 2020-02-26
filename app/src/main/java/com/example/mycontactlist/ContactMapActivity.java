@@ -68,7 +68,7 @@ GoogleApiClient.ConnectionCallbacks, com.google.android.gms.location.LocationLis
     private SensorEventListener mySensorEventListener = new SensorEventListener() {
         @Override
         public void onAccuracyChanged(Sensor sensor, int i) {
-        ////////////////
+        ///////
         }
         float[] accelerometerValues;
         float[] magnetometerValues;

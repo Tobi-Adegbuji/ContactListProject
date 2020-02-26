@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:id="@+id/navbar"
-        android:background="@color/new_data_color"
+        android:background="@color/softer_black"
         >
 
 
@@ -45,7 +45,7 @@
             android:id="@+id/imageButtonSettings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/setting"
+            app:srcCompat="@drawable/navsettings"
             android:layout_marginStart="20dp"
             android:layout_marginLeft="20dp"
             android:layout_toRightOf="@id/imageButtonMap"
@@ -62,7 +62,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:background="@color/soft_balck"
+        android:background="@color/softer_black"
         >
 
         <ToggleButton
@@ -103,7 +103,7 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/toolbar"
         android:layout_above="@+id/navbar"
-        android:background="@color/soft_balck"
+        android:background="@color/background_black"
         android:id="@+id/scrollView1">
 
         <RelativeLayout
@@ -111,12 +111,24 @@
             android:layout_height="wrap_content">
 
 
+            <ImageButton
+                android:id="@+id/imageContact"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/profile"
+                android:background="@color/new_data_color"
+                />
+
             <CheckBox
                 android:id="@+id/checkBoxBFF"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="BFF"
-                android:layout_toRightOf="@+id/editName"
+                android:layout_below="@id/textBirthday"
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="10dp"
                 android:textColor="@color/bff_gold_color"
@@ -127,12 +139,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="BBFF"
-                android:layout_toRightOf="@+id/editName"
+                android:layout_toRightOf="@+id/checkBoxBFF"
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="10dp"
                 android:textColor="@color/bff_gold_color"
                 android:textSize="@dimen/text_size_large"
-                android:layout_below="@+id/checkBoxBFF"
+                android:layout_below="@+id/textBirthday"
                 />
 
 
@@ -158,10 +170,11 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginStart="10dp"
                 android:layout_below="@+id/textContact"
-                android:ems="14"
+                android:ems="11"
                 android:imeOptions="actionNext"
                 android:inputType="textCapWords"
                 android:textColor="@color/new_data_color"
+
                 >
                 <requestFocus/>
             </EditText>
